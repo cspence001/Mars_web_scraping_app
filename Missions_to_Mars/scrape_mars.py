@@ -72,12 +72,12 @@ def scrape():
 
     #full dictionary 
     mars_dict = {
-    'hemispheres_imgs':mars_urls,
-    'news_title':news_title,
-    'news_p':news_p,
-    'featured_img':featured_image_url,
-    'facts_table':html_table
-}
+        'hemispheres_imgs':mars_urls,
+        'news_title':news_title,
+        'news_p':news_p,
+        'featured_img':featured_image_url,
+        'facts_table':html_table
+        }
 
     browser.quit()
     

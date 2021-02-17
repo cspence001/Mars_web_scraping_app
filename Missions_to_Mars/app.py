@@ -17,7 +17,7 @@ mongo = PyMongo(app)
 @app.route('/')
 def index():
     mars_dict = mongo.db.mars_dict.find_one()
-    return render_template("index.html", mars_dict=mars_dict)
+    return render_template("index.html", mars=mars_dict)
 
 @app.route('/scrape')
 def scrape():
