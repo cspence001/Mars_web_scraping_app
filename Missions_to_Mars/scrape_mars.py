@@ -40,6 +40,7 @@ def scrape():
     facts_url = 'https://space-facts.com/mars/'
     table = pd.read_html(facts_url)
     facts_table = table[0]
+    html_table = facts_table.to_html()
 
     #hemispheres
     main_url = 'https://astrogeology.usgs.gov/'
@@ -75,7 +76,7 @@ def scrape():
     'news_title':news_title,
     'news_p':news_p,
     'featured_img':featured_image_url,
-    'facts_table':facts_table
+    'facts_table':html_table
 }
 
     browser.quit()
