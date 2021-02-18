@@ -1,11 +1,9 @@
-
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 import scrape_mars
 
 
 #creating app routes to call dined functions from above
-
 
 app = Flask(__name__)
 

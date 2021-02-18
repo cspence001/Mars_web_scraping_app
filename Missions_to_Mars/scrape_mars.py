@@ -2,6 +2,7 @@
 from splinter import Browser
 from bs4 import BeautifulSoup
 import pandas as pd
+import time 
 
 def init_browser():
     executable_path = {'executable_path': "/usr/local/bin/chromedriver"}
@@ -9,8 +10,7 @@ def init_browser():
 
 def scrape():
     browser =init_browser()
-    mars_dict = {}
-    
+
     #latest news 
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
@@ -21,8 +21,8 @@ def scrape():
     articles = soup.find_all('div', class_='list_text')
 
     for article in articles:
-        news_title = article.find('div', class_='content_title').text
-        news_p = article.find('div', class_='article_teaser_body').text
+        news_title = soup.find('div', class_='content_title').text
+        news_p = soup.find('div', class_='article_teaser_body').text
 
     #featured_img
     jp_url = 'https://data-class-jpl-space.s3.amazonaws.com/JPL_Space/index.html'
@@ -35,13 +35,16 @@ def scrape():
         src=src.get('src')
         featured_image_url = jp_url.replace('index.html', src)
 
-
     #facts table
     facts_url = 'https://space-facts.com/mars/'
     table = pd.read_html(facts_url)
     facts_table = table[0]
-    html_table = facts_table.to_html()
+    facts_table.columns = ["Mars", ""]
+    facts_table.set_index("Mars", inplace=True)
+    html_table = facts_table.to_html(index=True, header=True, border=1, justify="left")
+    html_table.replace("\n", "")
 
+    
     #hemispheres
     main_url = 'https://astrogeology.usgs.gov/'
     hemispheres_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -52,14 +55,11 @@ def scrape():
     section = soup.find('div', class_='collapsible results')
     hemispheres = section.find_all('div', class_='item')
 
-    for title in hemispheres:
-        hem_title = title.find('div', class_='description')
-        titles = hem_title.h3.text
-
     mars_urls = []
+    for hems in hemispheres:
+        titles = hems.find('h3').text
     
-    for url in hemispheres:
-        url_ext = url.find('a')['href']
+        url_ext = hems.find('a')['href']
         browser.visit(main_url+url_ext)
     
         url_html = browser.html
@@ -67,17 +67,16 @@ def scrape():
     
         img_list = soup.find('li')
         img_url = img_list.find('a')['href']
-    
-    mars_urls.append({"title" : titles, "img_url" : img_url})
 
-    #full dictionary 
+        mars_urls.append({"title" : titles, "img_url" : img_url})
+
     mars_dict = {
         'hemispheres_imgs':mars_urls,
-        'news_title':news_title,
+        'news_title': news_title,
         'news_p':news_p,
         'featured_img':featured_image_url,
-        'facts_table':html_table
-        }
+        'facts_table':str(html_table)
+    }
 
     browser.quit()
     
