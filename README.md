@@ -16,7 +16,7 @@ Mission to Mars is a web application that scrapes various websites for data rela
 <p>The python script<a href="https://github.com/cspence001/web_scraping_challenge/blob/main/Missions_to_Mars/scrape_mars.py">scrape_mars.py</a> creates the scrape() function that executes the scraping code created in the jupyter notebook file. The scrape function is called in the app.py file.</p>
 <br>
 
-<p>The Flask app<a href="https://github.com/cspence001/web_scraping_challenge/blob/main/Missions_to_Mars/app.py">app.py</a> contains two routes one of which calls the scrape function from the previous code when executed via the "Scrape New Data" button on the home page. The root route queries the Mongo database and passes the executed Mars Data into an HTML page for rendering of the data dictionary for display.</p>
+<p>The Flask app <a href="https://github.com/cspence001/web_scraping_challenge/blob/main/Missions_to_Mars/app.py">app.py</a> contains two routes one of which calls the scrape function from the previous code when executed via the "Scrape New Data" button on the home page. The root route queries the Mongo database and passes the executed Mars Data into an HTML page for rendering of the data dictionary for display.</p>
 <br>
 <p>The folder <a href="https://github.com/cspence001/web_scraping_challenge/tree/main/Missions_to_Mars/templates">templates</a> contains the <a href="https://github.com/cspence001/web_scraping_challenge/blob/main/Missions_to_Mars/templates/index.html">index.html</a> file that displays the data using Bootstrap page elements.</p>
 <br>
