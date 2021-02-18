@@ -18,7 +18,7 @@ Mission to Mars is a web application that scrapes various websites for data rela
 
 <p><a href="cspence001/web_scraping_challenge/Missions_to_Mars/app.py">app.py</a> is the Flask app containing two routes of which call the scrape function from the previous code when executed via the "Scrape New Data" button on the home page. The root route queries the Mongo database and passes the executed Mars Data into an HTML page for rendering of the data dictionary for display.</p>
 <br>
-<p>The folder <a href="cspence001/web_scraping_challenge/Missions_to_Mars/templates">templates</a> contains the <a href="cspence001/web_scraping_challenge/Missions_to_Mars/templates/index.html">index.html</a>file that displays the data using Bootstrap page elements.</p>
+<p>The folder <a href="cspence001/web_scraping_challenge/Missions_to_Mars/templates">templates</a> contains the <a href="cspence001/web_scraping_challenge/Missions_to_Mars/templates/index.html">index.html</a> file that displays the data using Bootstrap page elements.</p>
 <br>
 <p>The folder <a href="cspence001/web_scraping_challenge/Missions_to_Mars/Screenshots">Screenshots</a> contains two screenshots of the final webpage display. </p>
 
