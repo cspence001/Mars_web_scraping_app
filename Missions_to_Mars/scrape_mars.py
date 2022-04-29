@@ -1,25 +1,26 @@
 
 from splinter import Browser
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import pandas as pd
 import time 
 
 def init_browser():
-    executable_path = {'executable_path': "/usr/local/bin/chromedriver"}
+    executable_path = {'executable_path': ChromeDriverManager().install()}
     return Browser("chrome", **executable_path, headless=True)
 
 def scrape():
     browser =init_browser()
 
     #latest news 
-    url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
+    url = 'https://mars.nasa.gov/news'
     browser.visit(url)
 
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
     articles = soup.find_all('div', class_='list_text')
-
+    
     for article in articles:
         news_title = soup.find('div', class_='content_title').text
         news_p = soup.find('div', class_='article_teaser_body').text
@@ -70,15 +71,14 @@ def scrape():
 
         mars_urls.append({"title" : titles, "img_url" : img_url})
 
-    mars_dict = {
-        'hemispheres_imgs':mars_urls,
-        'news_title': news_title,
-        'news_p':news_p,
-        'featured_img':featured_image_url,
-        'facts_table':str(html_table)
-    }
-
-    browser.quit()
+        
+        mars_dict = {
+                'hemispheres_imgs':mars_urls,
+                'news_title': news_title,
+                'news_p':news_p,
+                'featured_img':featured_image_url,
+                'facts_table':str(html_table) }
+    browser.quit() 
     
     return mars_dict
 
